@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --background: #0B0B0B;
+  --foreground: #F5F5F5;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  overflow-x: hidden;
+  selection-background-color: #C89B3C;
+  selection-color: #0B0B0B;
+}
+
+::selection {
+  background: #C89B3C;
+  color: #0B0B0B;
+}
+
+/* Custom Gold & Dark Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0B0B;
+}
+::-webkit-scrollbar-thumb {
+  background: #5C3A21;
+  border-radius: 4px;
+  border: 1px solid #C89B3C33;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C89B3C;
+}
+
+/* Cinematic Glow & Gradients */
+.gold-glow {
+  text-shadow: 0 0 20px rgba(200, 155, 60, 0.4), 0 0 40px rgba(200, 155, 60, 0.2);
+}
+
+.gold-border-glow {
+  box-shadow: 0 0 15px rgba(200, 155, 60, 0.25), inset 0 0 15px rgba(200, 155, 60, 0.1);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFF3D6 0%, #DFB76C 40%, #C89B3C 70%, #8E651E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, #DFB76C 0%, #C89B3C 50%, #9E7422 100%);
+}
+
+.border-traditional {
+  border: 1px solid rgba(200, 155, 60, 0.3);
+}
+
+.bg-traditional-pattern {
+  background-color: #0B0B0B;
+  background-image: radial-gradient(rgba(200, 155, 60, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Print Styles for Fee Receipts */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .printable-receipt {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    box-shadow: none !important;
+    border: 2px solid #333333 !important;
+  }
+}

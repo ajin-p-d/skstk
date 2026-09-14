@@ -1,0 +1,16 @@
+.next/
+.dist/
+node_modules/
+
+# Large media / document assets
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.pdf
+*.docx
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
