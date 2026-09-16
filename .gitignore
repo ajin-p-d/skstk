@@ -1,6 +1,7 @@
 .next/
 .dist/
 node_modules/
+*.tsbuildinfo
 
 # Large media / document assets
 *.mp4
