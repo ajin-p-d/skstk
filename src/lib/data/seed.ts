@@ -39,12 +39,12 @@ export const initialBatches: Batch[] = [
 export const instructorsData: Instructor[] = [
   {
     id: 'inst-1',
-    name: 'GURUKKAL K. CHANDRAN',
+    name: 'E S KALESH',
     designation: 'Chief Gurukkal & Lineage Holder',
     experience: '35+ Years of Experience',
     specialization: ['Thulunadan Kalari', 'Marma Chikitsa', 'Angathari (Metal Weapons)', 'Pranayama'],
     quote: 'Train with discipline. Live with strength. The Kalari arena is not just ground, it is consecrated spirit.',
-    image: '/images/gallery-1.png',
+    image: '/images/KALESH.jpg',
     bio: 'Direct disciple of traditional northern masters. Preserving authentic Thulunadan techniques, animal stances (Ashta Vadivukal), and ancient Kalari healing traditions for nearly four decades.',
   },
   {

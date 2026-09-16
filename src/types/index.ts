@@ -20,6 +20,7 @@ export interface Student {
   id: string;
   student_id: string; // e.g. "KAL-2026-001"
   name: string;
+  email?: string;
   photo?: string;
   phone: string;
   parent_name: string;
@@ -121,4 +122,19 @@ export interface VideoItem {
   category: 'Sparring' | 'Weapons' | 'Takedown' | 'Technique';
   duration: string;
   thumbnail: string;
+}
+
+export type UserApprovalStatus = 'pending' | 'approved' | 'rejected';
+
+export interface UserAccount {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  role: 'admin' | 'student';
+  approval_status: UserApprovalStatus;
+  student_id?: string;
+  phone?: string;
+  created_at: string;
+  approved_at?: string;
 }

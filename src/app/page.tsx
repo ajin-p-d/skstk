@@ -9,8 +9,11 @@ import GallerySection from '@/components/public/GallerySection';
 import ScheduleSection from '@/components/public/ScheduleSection';
 import ContactSection from '@/components/public/ContactSection';
 import Footer from '@/components/layout/Footer';
+import { getInstructors } from '@/lib/db/store';
 
 export default function HomePage() {
+  const instructors = getInstructors();
+
   return (
     <main className="min-h-screen bg-kalari-black text-kalari-white selection:bg-kalari-gold selection:text-kalari-black">
       <Navbar />
@@ -18,7 +21,7 @@ export default function HomePage() {
       <ScrollStory />
       <AboutSection />
       <ProgramsSection />
-      <InstructorsSection />
+      <InstructorsSection initialInstructors={instructors} />
       <GallerySection />
       <ScheduleSection />
       <ContactSection />

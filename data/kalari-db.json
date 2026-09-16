@@ -151,6 +151,46 @@
       "blood_group": "A+ve",
       "emergency_notes": "Assists with beginner warmups.",
       "created_at": "2023-11-20T17:30:00Z"
+    },
+    {
+      "id": "stu-1789542498203",
+      "student_id": "KAL-2026-009",
+      "name": "Rohit Nair",
+      "email": "rohit_1789542495892@gmail.com",
+      "phone": "+91 99999 11111",
+      "parent_name": "Guardian",
+      "parent_phone": "+91 99887 76655",
+      "date_of_birth": "2005-01-01",
+      "age": 21,
+      "gender": "Male",
+      "address": "Calicut, Kerala",
+      "joining_date": "2026-09-16",
+      "batch_id": "batch-evening",
+      "training_level": "Beginner",
+      "status": "active",
+      "blood_group": "B+ve",
+      "emergency_notes": "Initiated student member.",
+      "created_at": "2026-09-16T07:08:18.203Z"
+    },
+    {
+      "id": "stu-1789543478874",
+      "student_id": "KAL-2026-010",
+      "name": "sivananth",
+      "email": "sivananth@gmail.com",
+      "phone": "9876543210",
+      "parent_name": "Guardian",
+      "parent_phone": "9876543210",
+      "date_of_birth": "2005-01-01",
+      "age": 21,
+      "gender": "Male",
+      "address": "Kannur, Kerala, India",
+      "joining_date": "2026-09-16",
+      "batch_id": "batch-evening",
+      "training_level": "Beginner",
+      "status": "active",
+      "blood_group": "O+ve",
+      "emergency_notes": "Initiated student member.",
+      "created_at": "2026-09-16T07:24:38.874Z"
     }
   ],
   "batches": [
@@ -2667,6 +2707,42 @@
   ],
   "notifications": [
     {
+      "type": "event",
+      "title": "Student Access Approved",
+      "message": "Account for sivananth (sivananth@gmail.com) was marked as approved.",
+      "target_student_id": "KAL-2026-010",
+      "id": "notif-1789543478891",
+      "date": "2026-09-16T07:24:38.891Z",
+      "read": false
+    },
+    {
+      "type": "class",
+      "title": "New Student Registration Pending Approval",
+      "message": "sivananth (sivananth@gmail.com) has applied for student portal access. Please review and approve in Admin Approvals.",
+      "target_student_id": null,
+      "id": "notif-1789542924759",
+      "date": "2026-09-16T07:15:24.759Z",
+      "read": false
+    },
+    {
+      "type": "event",
+      "title": "Student Access Approved",
+      "message": "Account for Rohit Nair (rohit_1789542495892@gmail.com) was marked as approved.",
+      "target_student_id": "KAL-2026-009",
+      "id": "notif-1789542498208",
+      "date": "2026-09-16T07:08:18.208Z",
+      "read": false
+    },
+    {
+      "type": "class",
+      "title": "New Student Registration Pending Approval",
+      "message": "Rohit Nair (rohit_1789542495892@gmail.com) has applied for student portal access. Please review and approve in Admin Approvals.",
+      "target_student_id": null,
+      "id": "notif-1789542497758",
+      "date": "2026-09-16T07:08:17.758Z",
+      "read": false
+    },
+    {
       "id": "notif-1",
       "type": "class",
       "title": "Class Reminder",
@@ -2701,6 +2777,100 @@
       "target_student_id": null,
       "date": "2026-09-10T15:00:00Z",
       "read": false
+    }
+  ],
+  "instructors": [
+    {
+      "id": "inst-1",
+      "name": "E S KALESH",
+      "designation": "Chief Gurukkal & Lineage Holder",
+      "experience": "35+ Years of Experience",
+      "specialization": [
+        "Thulunadan Kalari",
+        "Marma Chikitsa",
+        "Angathari (Metal Weapons)",
+        "Pranayama"
+      ],
+      "quote": "Train with discipline. Live with strength. The Kalari arena is not just ground, it is consecrated spirit.",
+      "image": "/images/KALESH.jpg",
+      "bio": "Direct disciple of traditional northern masters. Preserving authentic Thulunadan techniques, animal stances (Ashta Vadivukal), and ancient Kalari healing traditions for nearly four decades."
+    },
+    {
+      "id": "inst-2",
+      "name": "AJIN P D",
+      "designation": "Senior Combat Instructor",
+      "experience": "7+ Years of Experience",
+      "specialization": [
+        "Kolthari (Long Staff & Otta)",
+        "Verumkai (Bare Hands)",
+        "Footwork Conditioning"
+      ],
+      "quote": "True speed is born from calmness; ultimate force is born from balance.",
+      "image": "/uploads/1789540524347_ajin.jpeg",
+      "bio": "Specialist in rapid weapon combat and close-quarter defense. Gold medalist in National Kalaripayattu Championships and seasoned mentor to senior students."
+    },
+    {
+      "id": "inst-3",
+      "name": "ASAN MEERA RAJAN",
+      "designation": "Instructor & Chikitsa Specialist",
+      "experience": "12+ Years of Experience",
+      "specialization": [
+        "Meipayattu (Body Art)",
+        "Flexibility & Kicks",
+        "Women Self-Defense",
+        "Urumi Flow"
+      ],
+      "quote": "The flexible mind commands the unbreakable body.",
+      "image": "/images/gallery-3.png",
+      "bio": "Leads youth development and women self-defense modules, combining dynamic flexibility routines with classical Kerala martial disciplines."
+    }
+  ],
+  "users": [
+    {
+      "id": "user-admin",
+      "email": "admin@gmail.com",
+      "password": "admin@123",
+      "name": "Chief Gurukkal",
+      "role": "admin",
+      "approval_status": "approved",
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "approved_at": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "user-arun",
+      "email": "arun@gmail.com",
+      "password": "student@123",
+      "name": "Arun Kumar",
+      "role": "student",
+      "approval_status": "approved",
+      "student_id": "KAL-2026-001",
+      "phone": "+91 98471 23456",
+      "created_at": "2026-01-10T10:00:00.000Z",
+      "approved_at": "2026-01-10T10:00:00.000Z"
+    },
+    {
+      "email": "rohit_1789542495892@gmail.com",
+      "password": "password123",
+      "name": "Rohit Nair",
+      "role": "student",
+      "approval_status": "approved",
+      "phone": "+91 99887 76655",
+      "id": "user-1789542497755",
+      "created_at": "2026-09-16T07:08:17.755Z",
+      "approved_at": "2026-09-16T07:08:18.203Z",
+      "student_id": "KAL-2026-009"
+    },
+    {
+      "email": "sivananth@gmail.com",
+      "password": "123456789",
+      "name": "sivananth",
+      "role": "student",
+      "approval_status": "approved",
+      "phone": "9876543210",
+      "id": "user-1789542924757",
+      "created_at": "2026-09-16T07:15:24.757Z",
+      "approved_at": "2026-09-16T07:24:38.874Z",
+      "student_id": "KAL-2026-010"
     }
   ]
 }

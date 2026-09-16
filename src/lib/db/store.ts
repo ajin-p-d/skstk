@@ -7,6 +7,8 @@ import {
   PaymentRecord,
   Batch,
   NotificationItem,
+  Instructor,
+  UserAccount,
 } from '@/types';
 import {
   initialStudents,
@@ -15,7 +17,33 @@ import {
   initialPayments,
   initialNotifications,
   generateInitialAttendance,
+  instructorsData,
 } from '../data/seed';
+
+export const initialUsers: UserAccount[] = [
+  {
+    id: 'user-admin',
+    email: 'admin@gmail.com',
+    password: 'admin@123',
+    name: 'Chief Gurukkal',
+    role: 'admin',
+    approval_status: 'approved',
+    created_at: '2026-01-01T00:00:00.000Z',
+    approved_at: '2026-01-01T00:00:00.000Z',
+  },
+  {
+    id: 'user-arun',
+    email: 'arun@gmail.com',
+    password: 'student@123',
+    name: 'Arun Kumar',
+    role: 'student',
+    approval_status: 'approved',
+    student_id: 'KAL-2026-001',
+    phone: '+91 98471 23456',
+    created_at: '2026-01-10T10:00:00.000Z',
+    approved_at: '2026-01-10T10:00:00.000Z',
+  },
+];
 
 interface KalariDatabase {
   students: Student[];
@@ -24,27 +52,64 @@ interface KalariDatabase {
   fees: FeeRecord[];
   payments: PaymentRecord[];
   notifications: NotificationItem[];
+  instructors: Instructor[];
+  users: UserAccount[];
 }
 
-const DB_FILE = path.join(process.cwd(), 'data', 'kalari-db.json');
+const LOCAL_DB_FILE = path.join(process.cwd(), 'data', 'kalari-db.json');
+const IS_SERVERLESS = process.env.VERCEL === '1' || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
+const DB_FILE = IS_SERVERLESS ? path.join('/tmp', 'kalari-db.json') : LOCAL_DB_FILE;
 
 // In-memory cache for fast SSR/API responses
 let memoryDb: KalariDatabase | null = null;
 
 function ensureDataDir() {
-  const dir = path.join(process.cwd(), 'data');
+  const dir = path.dirname(DB_FILE);
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+    try {
+      fs.mkdirSync(dir, { recursive: true });
+    } catch (e) {
+      // ignore
+    }
   }
 }
 
 function initDb(): KalariDatabase {
   ensureDataDir();
-  if (fs.existsSync(DB_FILE)) {
+
+  // If on serverless and /tmp/kalari-db.json doesn't exist, seed it from local file
+  if (IS_SERVERLESS && !fs.existsSync(DB_FILE) && fs.existsSync(LOCAL_DB_FILE)) {
     try {
-      const content = fs.readFileSync(DB_FILE, 'utf-8');
+      const initialContent = fs.readFileSync(LOCAL_DB_FILE, 'utf-8');
+      fs.writeFileSync(DB_FILE, initialContent, 'utf-8');
+    } catch (err) {
+      console.error('Error copying db to /tmp:', err);
+    }
+  }
+
+  const targetFile = fs.existsSync(DB_FILE) ? DB_FILE : fs.existsSync(LOCAL_DB_FILE) ? LOCAL_DB_FILE : null;
+  if (targetFile) {
+    try {
+      const content = fs.readFileSync(targetFile, 'utf-8');
       const parsed = JSON.parse(content);
       if (parsed.students && parsed.fees) {
+        let modified = false;
+        if (!parsed.instructors || !Array.isArray(parsed.instructors) || parsed.instructors.length === 0) {
+          parsed.instructors = [...instructorsData];
+          modified = true;
+        }
+        if (!parsed.users || !Array.isArray(parsed.users) || parsed.users.length === 0) {
+          parsed.users = [...initialUsers];
+          modified = true;
+        }
+        if (modified) {
+          try {
+            ensureDataDir();
+            fs.writeFileSync(DB_FILE, JSON.stringify(parsed, null, 2), 'utf-8');
+          } catch (writeErr) {
+            console.error('Error writing back defaults to db:', writeErr);
+          }
+        }
         return parsed;
       }
     } catch (err) {
@@ -59,6 +124,8 @@ function initDb(): KalariDatabase {
     fees: initialFees,
     payments: initialPayments,
     notifications: initialNotifications,
+    instructors: instructorsData,
+    users: initialUsers,
   };
 
   try {
@@ -435,4 +502,152 @@ export function getDashboardStats() {
     pendingFees,
     levels,
   };
+}
+
+// ==================== INSTRUCTORS / MASTERS ====================
+
+export function getInstructors(): Instructor[] {
+  const db = getDb();
+  if (!db.instructors || db.instructors.length === 0) {
+    db.instructors = [...instructorsData];
+    saveDb();
+  }
+  return db.instructors;
+}
+
+export function getInstructorById(id: string): Instructor | null {
+  const db = getDb();
+  return db.instructors?.find((inst) => inst.id === id) || null;
+}
+
+export function createInstructor(data: Omit<Instructor, 'id'>): Instructor {
+  const db = getDb();
+  if (!db.instructors) {
+    db.instructors = [...instructorsData];
+  }
+  const newInstructor: Instructor = {
+    ...data,
+    id: `inst-${Date.now()}`,
+  };
+  db.instructors.push(newInstructor);
+  saveDb();
+  return newInstructor;
+}
+
+export function updateInstructor(id: string, updates: Partial<Instructor>): Instructor | null {
+  const db = getDb();
+  if (!db.instructors) {
+    db.instructors = [...instructorsData];
+  }
+  const index = db.instructors.findIndex((inst) => inst.id === id);
+  if (index === -1) return null;
+
+  db.instructors[index] = {
+    ...db.instructors[index],
+    ...updates,
+    id, // ensure ID is preserved
+  };
+  saveDb();
+  return db.instructors[index];
+}
+
+export function deleteInstructor(id: string): boolean {
+  const db = getDb();
+  if (!db.instructors) return false;
+  const initialLen = db.instructors.length;
+  db.instructors = db.instructors.filter((inst) => inst.id !== id);
+  if (db.instructors.length !== initialLen) {
+    saveDb();
+    return true;
+  }
+  return false;
+}
+
+// ==================== USERS & APPROVALS ====================
+
+export function getUsers(): UserAccount[] {
+  const db = getDb();
+  if (!db.users || db.users.length === 0) {
+    db.users = [...initialUsers];
+    saveDb();
+  }
+  return db.users;
+}
+
+export function getUserByEmail(email: string): UserAccount | null {
+  const db = getDb();
+  if (!db.users) db.users = [...initialUsers];
+  return db.users.find((u) => u.email.toLowerCase() === email.toLowerCase().trim()) || null;
+}
+
+export function getUserById(id: string): UserAccount | null {
+  const db = getDb();
+  if (!db.users) db.users = [...initialUsers];
+  return db.users.find((u) => u.id === id) || null;
+}
+
+export function createUser(data: Omit<UserAccount, 'id' | 'created_at'>): UserAccount {
+  const db = getDb();
+  if (!db.users) db.users = [...initialUsers];
+
+  const newUser: UserAccount = {
+    ...data,
+    id: `user-${Date.now()}`,
+    created_at: new Date().toISOString(),
+  };
+
+  db.users.push(newUser);
+  saveDb();
+  return newUser;
+}
+
+export function updateUserApproval(id: string, status: 'approved' | 'rejected'): UserAccount | null {
+  const db = getDb();
+  if (!db.users) db.users = [...initialUsers];
+  const user = db.users.find((u) => u.id === id);
+  if (!user) return null;
+
+  user.approval_status = status;
+  if (status === 'approved') {
+    user.approved_at = new Date().toISOString();
+
+    // If student_id does not exist, create or link a Student record
+    if (!user.student_id && user.role === 'student') {
+      const nextNum = db.students.length + 1;
+      const numStr = nextNum < 10 ? `00${nextNum}` : nextNum < 100 ? `0${nextNum}` : `${nextNum}`;
+      const student_id = `KAL-2026-${numStr}`;
+      user.student_id = student_id;
+
+      const newStudent: Student = {
+        id: `stu-${Date.now()}`,
+        student_id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone || '+91 98470 00000',
+        parent_name: 'Guardian',
+        parent_phone: user.phone || '+91 98470 00000',
+        date_of_birth: '2005-01-01',
+        age: 21,
+        gender: 'Male',
+        address: 'Kannur, Kerala, India',
+        joining_date: new Date().toISOString().split('T')[0],
+        batch_id: 'batch-evening',
+        training_level: 'Beginner',
+        status: 'active',
+        blood_group: 'O+ve',
+        emergency_notes: 'Initiated student member.',
+        created_at: new Date().toISOString(),
+      };
+      db.students.push(newStudent);
+    }
+  }
+
+  saveDb();
+  return user;
+}
+
+export function getPendingUsers(): UserAccount[] {
+  const db = getDb();
+  if (!db.users) db.users = [...initialUsers];
+  return db.users.filter((u) => u.approval_status === 'pending');
 }

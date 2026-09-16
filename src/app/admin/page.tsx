@@ -15,6 +15,7 @@ import {
   TrendingUp,
   ShieldCheck,
   Sparkles,
+  Award,
 } from 'lucide-react';
 import { initialStudents, initialBatches } from '@/lib/data/seed';
 
@@ -188,6 +189,22 @@ export default function AdminDashboardPage() {
             >
               <CreditCard className="w-4 h-4" />
               <span>Collect Fee & Print Receipt</span>
+            </Link>
+
+            <Link
+              href="/admin/approvals"
+              className="px-4 py-2.5 rounded-lg bg-amber-500/20 border border-amber-400/50 text-amber-300 hover:bg-amber-500 hover:text-black font-serif font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5"
+            >
+              <UserCheck className="w-4 h-4" />
+              <span>Access Approvals</span>
+            </Link>
+
+            <Link
+              href="/admin/masters"
+              className="px-4 py-2.5 rounded-lg bg-kalari-darkBrown border border-kalari-gold/40 text-kalari-gold hover:bg-kalari-gold hover:text-kalari-black font-serif font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5"
+            >
+              <Award className="w-4 h-4" />
+              <span>Manage Masters</span>
             </Link>
           </div>
         </div>

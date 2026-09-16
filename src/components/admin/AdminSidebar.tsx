@@ -16,6 +16,8 @@ import {
   User,
   LogOut,
   X,
+  Award,
+  UserCheck,
 } from 'lucide-react';
 import { useRole } from '@/context/RoleContext';
 
@@ -30,6 +32,8 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
 
   const navItems = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+    { name: 'Access Approvals', href: '/admin/approvals', icon: UserCheck },
+    { name: 'Masters & Instructors', href: '/admin/masters', icon: Award },
     { name: 'Student Management', href: '/admin/students', icon: Users },
     { name: 'Daily Attendance', href: '/admin/attendance', icon: CalendarCheck },
     { name: 'Fee Management', href: '/admin/fees', icon: CreditCard },
