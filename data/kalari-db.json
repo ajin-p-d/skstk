@@ -2784,7 +2784,7 @@
       "id": "inst-1",
       "name": "E S KALESH",
       "designation": "Chief Gurukkal & Lineage Holder",
-      "experience": "35+ Years of Experience",
+      "experience": "25+ Years of Experience",
       "specialization": [
         "Thulunadan Kalari",
         "Marma Chikitsa",
@@ -2792,7 +2792,7 @@
         "Pranayama"
       ],
       "quote": "Train with discipline. Live with strength. The Kalari arena is not just ground, it is consecrated spirit.",
-      "image": "/images/KALESH.jpg",
+      "image": "/uploads/e s kalesh.jpeg",
       "bio": "Direct disciple of traditional northern masters. Preserving authentic Thulunadan techniques, animal stances (Ashta Vadivukal), and ancient Kalari healing traditions for nearly four decades."
     },
     {
@@ -2806,14 +2806,14 @@
         "Footwork Conditioning"
       ],
       "quote": "True speed is born from calmness; ultimate force is born from balance.",
-      "image": "/uploads/1789540524347_ajin.jpeg",
+      "image": "/uploads/ajin.jpeg",
       "bio": "Specialist in rapid weapon combat and close-quarter defense. Gold medalist in National Kalaripayattu Championships and seasoned mentor to senior students."
     },
     {
       "id": "inst-3",
-      "name": "ASAN MEERA RAJAN",
-      "designation": "Instructor & Chikitsa Specialist",
-      "experience": "12+ Years of Experience",
+      "name": "MIDHUN RAJ M",
+      "designation": "senior Instructor",
+      "experience": "7+ Years of Experience",
       "specialization": [
         "Meipayattu (Body Art)",
         "Flexibility & Kicks",
@@ -2821,8 +2821,22 @@
         "Urumi Flow"
       ],
       "quote": "The flexible mind commands the unbreakable body.",
-      "image": "/images/gallery-3.png",
+      "image": "/uploads/midhun.jpeg",
       "bio": "Leads youth development and women self-defense modules, combining dynamic flexibility routines with classical Kerala martial disciplines."
+    },
+    {
+      "name": "ARJUN MANI",
+      "designation": "Senior Kalari Instructor",
+      "experience": "5+ Years of Experience",
+      "specialization": [
+        "Meipayattu",
+        "Kolthari",
+        "Verumkai"
+      ],
+      "quote": "Discipline in training creates unbreakable spirit.",
+      "image": "/uploads/arjun mani.jpeg",
+      "bio": "",
+      "id": "inst-1789546370598"
     }
   ],
   "users": [
